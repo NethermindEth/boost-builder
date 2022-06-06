@@ -10,6 +10,41 @@ Test with [mev-boost](https://github.com/flashbots/mev-boost) and [mev-boost tes
 
 Provides summary page at the listening address' root (http://localhost:28545 by default).
 
+## How to Run
+
+To run the builder, make sure to have go installed:
+
+```bash
+make
+./build/bin/builder
+```
+
+and a relay server will run by default on http://localhost:28545.
+
+[Nethermind](https://github.com/NethermindEth/nethermind) has integrated with this builder API to be a block builder. To produce blocks with `mev-boost` you will need:
+
+* Synced execution client
+* Synced beacon client
+* Validator
+* [mev-boost](https://github.com/flashbots/mev-boost)
+
+Instructions to set up Nethermind with a beacon client can be found [here](https://docs.nethermind.io/nethermind/first-steps-with-nethermind/running-nethermind-post-merge)
+
+To allow Nethermind to be a block builder, make sure the Merge plugin is enabled with the relay url specified in the Nethermind config file:
+
+```
+"Merge": {
+  "Enabled": true,
+  "BuilderRelayUrl": "http://localhost:28545"
+}
+```
+
+To connect with the kiln network, edit `kiln.cfg` with the relay url and run:
+
+```
+dotnet run -c Release --config kiln
+```
+
 ## How it works
 
 API server has two endpoints that can be called by a compatible execution client (EL):
