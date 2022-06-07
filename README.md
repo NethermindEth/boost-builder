@@ -55,7 +55,6 @@ API server has two endpoints that can be called by a compatible execution client
 
 * Blocks are only built on forkchoice update call from beacon node
 * Only works post-Bellatrix, fork version is static
-* Does not accept external blocks
 * Does not have payload cache, only the latest block is available
 
 ## Usage

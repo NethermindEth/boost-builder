@@ -237,8 +237,7 @@ func TestPayloadAttributes(t *testing.T) {
 
 	payloadAttributes := &PayloadAttributes{
 		SuggestedFeeRecipient: common.Address{0x01},
-		GasLimit:              15_000_000,
-		Timestamp:             uint64(time.Now().Unix()),
+		Timestamp:             (*hexutil.Big)(big.NewInt(time.Now().Unix())),
 		Random:                common.HexToHash("0xafafafa"),
 	}
 

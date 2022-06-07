@@ -30,20 +30,20 @@ type Block struct {
 }
 
 type PayloadAttributes struct {
-	Timestamp             uint64         `json:"timestamp"`
+	Timestamp             *hexutil.Big   `json:"timestamp"`
 	Random                common.Hash    `json:"prevRandao"`
 	SuggestedFeeRecipient common.Address `json:"suggestedFeeRecipient"`
-	GasLimit              uint64         `json:"gasLimit"`
+	GasLimit              uint64         `json:"gasLimit,omitempty"`
 }
 
 type ValidatorData struct {
 	FeeRecipient boostTypes.Address `json:"feeRecipient"`
 	GasLimit     uint64             `json:"gasLimit"`
-	Timestamp    uint64             `json:"timestamp"`
+	Timestamp    uint64             `json:"timestamp,omitempty"`
 }
 
 type BuilderPayloadAttributes struct {
-	Timestamp             uint64             `json:"timestamp"`
+	Timestamp             *hexutil.Big       `json:"timestamp"`
 	Random                boostTypes.Hash    `json:"prevRandao"`
 	SuggestedFeeRecipient boostTypes.Address `json:"suggestedFeeRecipient"`
 	GasLimit              uint64             `json:"gasLimit"`
@@ -369,7 +369,6 @@ func (b *Backend) handlePayloadAttributes(w http.ResponseWriter, req *http.Reque
 		Timestamp:             payloadAttributes.Timestamp,
 		Random:                boostTypes.Hash(payloadAttributes.Random),
 		SuggestedFeeRecipient: boostTypes.Address(payloadAttributes.SuggestedFeeRecipient),
-		GasLimit:              payloadAttributes.GasLimit,
 	}
 
 	b.validatorsLock.RLock()
